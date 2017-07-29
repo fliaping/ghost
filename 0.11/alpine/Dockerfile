@@ -44,14 +44,11 @@ RUN mkdir -p "$GHOST_CONTENT" \
 # Ghost expects "config.js" to be in $GHOST_SOURCE, but it's more useful for
 # image users to manage that as part of their $GHOST_CONTENT volume, so we
 # symlink.
-	&& ln -s "$GHOST_CONTENT/config.js" "$GHOST_SOURCE/config.js" \
-	&& npm install ghost-qn-store \
-	&& mkdir content/storage \
-	&& cp -vR node_modules/ghost-qn-store content/storage/qn-store
+	&& ln -s "$GHOST_CONTENT/config.js" "$GHOST_SOURCE/config.js"
 VOLUME $GHOST_CONTENT
 
 COPY docker-entrypoint.sh /usr/local/bin/
 ENTRYPOINT ["docker-entrypoint.sh"]
 
 EXPOSE 2368
-CMD ["npm", "start"]
+CMD ["sh", "init.sh"]
