@@ -48,6 +48,7 @@ RUN mkdir -p "$GHOST_CONTENT" \
 VOLUME $GHOST_CONTENT
 
 COPY docker-entrypoint.sh /usr/local/bin/
+COPY init.sh init.sh
 ENTRYPOINT ["docker-entrypoint.sh"]
 
 EXPOSE 2368
