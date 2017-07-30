@@ -18,7 +18,8 @@ WORKDIR /var/www/
 RUN mkdir -p ghost
 WORKDIR /var/www/ghost
 
-RUN ghost install local --no-start \
+RUN npm install sqlite3 --save \
+	&& ghost install local --no-start \
 	&& npm install ghost-qn-store \
 	&& mkdir content/adapters/storage \
 	&& cp -vR node_modules/ghost-qn-store content/storage/adapters/qn-store
