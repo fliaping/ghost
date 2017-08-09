@@ -36,6 +36,12 @@ RUN set -ex; \
 	chown node:node "$GHOST_CONTENT"
 
 WORKDIR $GHOST_INSTALL
+
+# install qn-store
+RUN npm install ghost-qn-store \
+    && mkdir -p content/adapters/storage \
+    && cp -vR node_modules/ghost-qn-store content/adapters/storage/qn-store
+
 VOLUME $GHOST_CONTENT
 
 COPY docker-entrypoint.sh /usr/local/bin
