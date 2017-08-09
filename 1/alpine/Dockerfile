@@ -34,8 +34,12 @@ RUN set -ex; \
 	npm install ghost-qn-store; \
     mkdir -p content/adapters/storage; \
     cp -vR node_modules/ghost-qn-store content/adapters/storage/qn-store; \
-    mv "$GHOST_INSTALL/config.js" "$GHOST_CONTENT/config.js"; \
-    ln -s "$GHOST_CONTENT/config.js" "$GHOST_INSTALL/config.js"; \
+    ls -la "$GHOST_INSTALL"; \
+    mkdir -p "$GHOST_CONTENT/config"; \
+    mv "$GHOST_INSTALL/config.production.json" "$GHOST_CONTENT/config/config.production.json"; \
+    ln -s "$GHOST_CONTENT/config/config.production.json" "$GHOST_INSTALL/config.production.json"; \
+    ls -la "$GHOST_CONTENT"; \
+    ls -la "$GHOST_INSTALL"; \
     \
 # need to save initial content for pre-seeding empty volumes
 	mv "$GHOST_CONTENT" "$GHOST_INSTALL/content.orig"; \
