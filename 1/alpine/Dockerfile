@@ -30,18 +30,19 @@ RUN set -ex; \
 	su-exec node ghost config --ip 0.0.0.0 --port 2368 --no-prompt --db sqlite3 --url http://localhost:2368 --dbpath "$GHOST_CONTENT/data/ghost.db"; \
 	su-exec node ghost config paths.contentPath "$GHOST_CONTENT"; \
 	\
+# install qn-store and mv config.js to content dir
+	npm install ghost-qn-store; \
+    mkdir -p content/adapters/storage; \
+    cp -vR node_modules/ghost-qn-store content/adapters/storage/qn-store; \
+    mv "$GHOST_INSTALL/config.js" "$GHOST_CONTENT/config.js"; \
+    ln -s "$GHOST_CONTENT/config.js" "$GHOST_INSTALL/config.js"; \
+    \
 # need to save initial content for pre-seeding empty volumes
 	mv "$GHOST_CONTENT" "$GHOST_INSTALL/content.orig"; \
 	mkdir -p "$GHOST_CONTENT"; \
 	chown node:node "$GHOST_CONTENT"
 
 WORKDIR $GHOST_INSTALL
-
-# install qn-store
-RUN npm install ghost-qn-store \
-    && mkdir -p content/adapters/storage \
-    && cp -vR node_modules/ghost-qn-store content/adapters/storage/qn-store
-
 VOLUME $GHOST_CONTENT
 
 COPY docker-entrypoint.sh /usr/local/bin
