@@ -3,7 +3,7 @@
 FROM node:6-slim
 
 # grab gosu for easy step-down from root
-ENV GOSU_VERSION 1.7
+ENV GOSU_VERSION 1.10
 RUN set -x \
 	&& wget -O /usr/local/bin/gosu "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$(dpkg --print-architecture)" \
 	&& wget -O /usr/local/bin/gosu.asc "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$(dpkg --print-architecture).asc" \
@@ -17,7 +17,7 @@ RUN set -x \
 ENV NPM_CONFIG_LOGLEVEL warn
 ENV NODE_ENV production
 ENV GHOST_CLI_VERSION 1.1.1
-ENV GHOST_VERSION 1.6.2
+ENV GHOST_VERSION 1.8.0
 
 RUN npm install -g "ghost-cli@$GHOST_CLI_VERSION" knex-migrator@latest
 
